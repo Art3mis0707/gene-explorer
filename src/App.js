@@ -48,7 +48,6 @@ const App = () => {
           <Route path="/genes/related-diseases" element={<RelatedDiseases />} />
 
           {/* Protein Explorer */}
-          <Route path="/proteins/details" element={<RelatedProteins />} />
           <Route path="/proteins/3d-viewer" element={<Protein3DViewer proteinStructure="PDB_DATA" />} />
 
           {/* Disease Tracker */}

@@ -19,12 +19,6 @@ const HomePage = () => {
                 <nav className={styles.nav}>
                     <ul>
                         <li>
-                            <Link to="/genes/viewer">Gene Details</Link>
-                        </li>
-                        <li>
-                            <Link to="/proteins/details">Protein Explorer</Link>
-                        </li>
-                        <li>
                             <button onClick={handleLoginClick} className={styles.loginButton}>
                                 Login
                             </button>
@@ -45,7 +39,13 @@ const HomePage = () => {
                         <h3>Gene Details</h3>
                         <p>Get insights into genes and their relationships with proteins and diseases.</p>
                         <Link to="/genes/viewer" className={styles.featureLink}>
-                            Explore Gene Details
+                            Explore Gene Viewer
+                        </Link>
+                        <Link to="/genes/related-diseases" className={styles.featureLink}>
+                            Explore Related Diseases
+                        </Link>
+                        <Link to="/genes/related-proteins" className={styles.featureLink}>
+                            Explore Related Proteins
                         </Link>
                     </div>
                     <div className={styles.featureCard}>

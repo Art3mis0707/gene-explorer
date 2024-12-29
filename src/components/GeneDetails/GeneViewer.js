@@ -1,13 +1,26 @@
 // src/components/GeneDetails/GeneViewer.js
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
+import styles from "./GeneViewer.module.css";
 
-const GeneViewer = ({ gene }) => (
-  <div className="gene-details">
-    <h2>{gene.name} (ID: {gene.id})</h2>
-    <p><strong>Chromosome:</strong> {gene.chromosome}</p>
-    <p><strong>Length:</strong> {gene.length}</p>
-    <p><strong>Sequence:</strong> {gene.sequence}</p>
-  </div>
-);
+const GeneViewer = () => {
+  return (
+    <div className={styles.page}>
+      <header className={styles.header}>
+        <h1>Gene Viewer</h1>
+        <Link to="/" className={styles.backButton}>Back to Home page</Link>
+      </header>
+      <main className={styles.main}>
+        <p>
+          Visualize and explore detailed gene sequences. Use tools to analyze the structure and functions of genes.
+        </p>
+        <div className={styles.viewer}>
+          <p><strong>Example:</strong> Gene Sequence: ATGCGTAACGGT...</p>
+          <button className={styles.button}>Analyze Gene</button>
+        </div>
+      </main>
+    </div>
+  );
+};
 
 export default GeneViewer;

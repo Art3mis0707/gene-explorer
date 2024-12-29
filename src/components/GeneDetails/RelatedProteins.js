@@ -1,20 +1,43 @@
-// src/components/ProteinExplorer/RelatedProteins.js
+// src/components/GeneDetails/RelatedProteins.js
 import React from "react";
-import styles from "./RelatedProteins.module.css"; // Ensure this CSS file is in the same folder
+import { Link } from "react-router-dom";
+import styles from "./RelatedProteins.module.css";
 
-const RelatedProteins = ({ proteins }) => (
-  <div className={styles.container}>
-    <h2>Related Proteins</h2>
-    <ul>
-      {proteins.map((protein) => (
-        <li key={protein.id}>
-          <a href={`/protein/${protein.id}`} className={styles.link}>
-            {protein.name}
-          </a>
-        </li>
-      ))}
-    </ul>
-  </div>
-);
+const RelatedProteins = () => {
+  return (
+    <div className={styles.page}>
+      <header className={styles.header}>
+        <h1>Related Proteins</h1>
+        <Link to="/" className={styles.backButton}>Back to Home page</Link>
+      </header>
+      <main className={styles.main}>
+        <p>
+          View proteins associated with this gene and their biological significance.
+        </p>
+        <table className={styles.proteinTable}>
+          <thead>
+            <tr>
+              <th>Protein Name</th>
+              <th>Function</th>
+              <th>Structure</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Protein X</td>
+              <td>Enzymatic Activity</td>
+              <td>Helical</td>
+            </tr>
+            <tr>
+              <td>Protein Y</td>
+              <td>Signal Transduction</td>
+              <td>Globular</td>
+            </tr>
+          </tbody>
+        </table>
+      </main>
+    </div>
+  );
+};
 
 export default RelatedProteins;
