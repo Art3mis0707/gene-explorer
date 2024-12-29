@@ -1,0 +1,104 @@
+/* Overall Page Styling */
+.homepage {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header Styling */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: lightskyblue;
+    color: white;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav li {
+    margin-right: 20px;
+}
+
+.nav a,
+.loginButton {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.loginButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.loginButton:hover {
+    text-decoration: underline;
+}
+
+/* Main Content Styling */
+.main {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    color: lightblue;
+    /* background-image: url("https://cdn.dribbble.com/users/219992/screenshots/1746189/geneanimationdribbble.gif"); */
+    /* background-image: url("https://cdn.dribbble.com/users/31818/screenshots/6172610/gif-dribbb.gif"); */
+    background-image: url("https://i.makeagif.com/media/6-07-2020/LpOfQ9.gif");
+}
+
+.features {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+.featureCard {
+    width: 300px;
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.featureCard h3 {
+    margin-bottom: 10px;
+}
+
+.featureLink {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.featureLink:hover {
+    background-color: #0056b3;
+}
+
+/* Footer Styling */
+.footer {
+    padding: 10px 20px;
+    text-align: center;
+    background-color: #f1f1f1;
+    color: #333;
+}
