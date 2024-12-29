@@ -12,6 +12,11 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className={styles.loginPage}>
+      <header className={styles.header}>
+        <div className={styles.logo}>
+          <h1>Gene Explorer</h1>
+        </div>
+      </header>
       <div className={styles.loginForm}>
         <input
           type="text"
@@ -27,6 +32,9 @@ const Login = ({ onLogin }) => {
         />
         <button onClick={handleLogin}>Login</button>
       </div>
+      <footer className={styles.footer}>
+        <p>&copy; 2024 Gene Explorer. All Rights Reserved.</p>
+      </footer>
     </div>
   );
 };
