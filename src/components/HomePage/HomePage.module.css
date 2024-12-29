@@ -28,6 +28,16 @@
     font-weight: bold;
 }
 
+.nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+.nav li {
+    margin-right: 20px;
+}
+
 .loginButton {
     background: none;
     border: none;

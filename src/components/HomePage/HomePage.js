@@ -9,6 +9,10 @@ const HomePage = () => {
         navigate("/login");
     };
 
+    const handleRegisterClick = () => {
+        navigate("/register");
+    };
+
     return (
         <div className={styles.homepage}>
             {/* Header */}
@@ -17,9 +21,19 @@ const HomePage = () => {
                     <h1>Gene Explorer</h1>
                 </div>
                 <nav className={styles.nav}>
-                    <button onClick={handleLoginClick} className={styles.loginButton}>
-                        Login
-                    </button>
+                    <ul>
+                        <li>
+                            <button onClick={handleRegisterClick} className={styles.loginButton}>
+                                Register
+                            </button>
+                        </li>
+                        <li>
+                            <button onClick={handleLoginClick} className={styles.loginButton}>
+                                Login
+                            </button>
+                        </li>
+                    </ul>
+
                 </nav>
             </header>
 
