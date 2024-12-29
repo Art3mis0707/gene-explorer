@@ -17,13 +17,9 @@ const HomePage = () => {
                     <h1>Gene Explorer</h1>
                 </div>
                 <nav className={styles.nav}>
-                    <ul>
-                        <li>
-                            <button onClick={handleLoginClick} className={styles.loginButton}>
-                                Login
-                            </button>
-                        </li>
-                    </ul>
+                    <button onClick={handleLoginClick} className={styles.loginButton}>
+                        Login
+                    </button>
                 </nav>
             </header>
 

@@ -21,6 +21,24 @@
   font-size: 24px;
 }
 
+.nav a,
+.homeButton {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.homeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.homeButton:hover {
+  text-decoration: underline;
+}
+
 .loginForm {
   display: flex;
   flex-direction: column;

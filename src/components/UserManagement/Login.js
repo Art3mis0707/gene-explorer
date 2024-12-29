@@ -1,5 +1,6 @@
 // src/components/UserManagement/Login.js
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 
 const Login = ({ onLogin }) => {
@@ -10,12 +11,23 @@ const Login = ({ onLogin }) => {
     onLogin({ username, password });
   };
 
+  const navigate = useNavigate();
+
+  const handleHomeClick = () => {
+    navigate("/");
+  };
+
   return (
     <div className={styles.loginPage}>
       <header className={styles.header}>
         <div className={styles.logo}>
           <h1>Gene Explorer</h1>
         </div>
+        <nav className={styles.nav}>
+          <button onClick={handleHomeClick} className={styles.homeButton}>
+            Back to Home page
+          </button>
+        </nav>
       </header>
       <div className={styles.loginForm}>
         <input
