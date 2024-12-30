@@ -6,6 +6,10 @@
   flex-direction: column;
   min-height: 100vh;
   background-image: url('./../../images/gene_bg.webp');
+
+  h2 {
+    color: #ffffff;
+  }
 }
 
 .header {
@@ -41,11 +45,23 @@
 }
 
 .form {
-  color: white;
+  /* color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center; */
+  gap: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* gap: 1rem; */
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 label {

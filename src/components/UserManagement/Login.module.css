@@ -1,6 +1,7 @@
 /* src/components/UserManagement/Login.module.css */
 
 .loginPage {
+  text-align: center;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
