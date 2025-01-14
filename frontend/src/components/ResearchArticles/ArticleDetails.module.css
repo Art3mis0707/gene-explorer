@@ -1,0 +1,9 @@
+/* src/components/ArticleDetails.module.css */
+.container {
+    background-color: #ecf0f1;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
