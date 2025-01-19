@@ -1,49 +1,137 @@
-/* src/components/GeneDetails/RelatedDiseases.module.css */
 .page {
     padding: 20px;
     background-color: #f9f9f9;
     min-height: 100vh;
-}
-
-.header {
+  }
+  
+  .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.header h1 {
-    font-size: 24px;
+  }
+  
+  .header h1 {
+    font-size: 28px;
     color: #333;
-}
-
-.backButton {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .backButton {
     padding: 10px 15px;
     background-color: #007bff;
     color: white;
     text-decoration: none;
     border-radius: 4px;
     font-weight: bold;
-}
-
-.backButton:hover {
+  }
+  
+  .backButton:hover {
     background-color: #0056b3;
-}
-
-.main {
+  }
+  
+  .main {
     margin-top: 20px;
-}
-
-.diseaseList {
-    margin-top: 20px;
-    list-style-type: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .geneList {
+    flex: 1;
+  }
+  
+  .geneList h2 {
+    font-size: 22px;
+    color: #333;
+    margin: 8px 0 0 0;
+  }
+  
+  .geneList ul {
+    list-style: none;
     padding: 0;
-}
-
-.diseaseList li {
+  }
+  
+  .geneItem {
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .geneItem:hover {
+    background-color: #f1f1f1;
+    color: #333;
+  }
+  
+  .activeGene {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .diseaseDetails {
+    flex: 2;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+  }
+  
+  .diseaseDetails h2 {
+    font-size: 22px;
+    margin: 0;
+  }
+  
+  .diseaseDetails h3 {
+    font-size: 18px;
+    margin-top: 20px;
+  }
+  
+  .geneSequence {
+    font-family: monospace;
+    background: #eef;
+    padding: 2px 4px;
+    border-radius: 3px;
+  }
+  
+  .diseaseItem {
     background: #ffffff;
     border: 1px solid #ddd;
     padding: 10px 15px;
     border-radius: 5px;
     margin-bottom: 10px;
     color: #333;
-}
+    transition: background-color 0.3s ease;
+  }
+  
+  .diseaseItem:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .diseaseHeader {
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .diseaseDescription {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .instruction {
+    font-size: 18px;
+    color: #666;
+    text-align: center; /* Center align */
+    margin-top: 20px;   /* Add spacing from the top */
+    flex: 2 1;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  

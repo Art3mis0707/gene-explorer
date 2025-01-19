@@ -1,64 +1,97 @@
-// src/components/GeneDetails/GeneViewer.js
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Pie } from "react-chartjs-2";
 import jsPDF from "jspdf";
 import styles from "./GeneViewer.module.css";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const GeneViewer = () => {
   const [geneSequence, setGeneSequence] = useState("");
   const [analysis, setAnalysis] = useState(null);
 
-  // Function to analyze the gene sequence
-  const analyzeGene = () => {
-    const counts = {
-      A: 0,
-      T: 0,
-      G: 0,
-      C: 0,
-    };
+  const predefinedSequences = [
+    { name: "Human Insulin Gene", sequence: "ATGCCCTCTTGCAGTTTTTTCTG" },
+    { name: "Lactase Gene", sequence: "TGGCCATTAGCGTTCTCAGT" },
+    { name: "Hemoglobin Beta Gene", sequence: "CACGTGTTTTGGGAGTTGTC" },
+    { name: "BRCA1 Gene", sequence: "AAGTCACAGTAGCTGCCTGA" },
+    { name: "EGFR Gene", sequence: "CTGAGTGGAGATCGTCCTGC" },
+    { name: "TP53 Tumor Suppressor Gene", sequence: "AGCTACGGCGGTGTGACCGT" },
+    { name: "MYC Proto-Oncogene", sequence: "GTGAACCGTCCTCGGATTAC" },
+    { name: "HBB Sickle Cell Mutation", sequence: "CACGTGTTTTGGGAGTCATC" }, // Hemoglobin beta with mutation
+    { name: "CFTR Gene (Cystic Fibrosis)", sequence: "CTTGGAGCAGATGCTGTACC" },
+    { name: "HLA-DQA1 Gene (Immune Response)", sequence: "TGGAGGGATCTGTGACTGTC" },
+    { name: "KRAS Oncogene", sequence: "GGCGGCCTGCTGAAAATGAC" },
+    { name: "APOE Gene (Alzheimer's Risk)", sequence: "GAGGGAGGCAAACTGACTGC" },
+    { name: "VEGFA Gene (Angiogenesis)", sequence: "TGCGGATGCCGTCACCAAGA" },
+    { name: "CYP2D6 (Drug Metabolism)", sequence: "CGTCTGAGTACACGGCCACT" },
+    { name: "ACTB (Beta-Actin Gene)", sequence: "CCACACCCGCCACCGCCCTC" },
+  ];
+  
 
+  // Helper functions
+  const analyzeGene = () => {
+    if (!geneSequence.trim()) {
+      alert("Please enter or select a gene sequence!");
+      return;
+    }
+  
+    // Validate gene sequence
+    const isValidSequence = /^[ATGC]+$/i.test(geneSequence.trim());
+    if (!isValidSequence) {
+      alert("Invalid gene sequence! A valid sequence can only contain A, T, G, and C.");
+      return;
+    }
+  
+    const counts = { A: 0, T: 0, G: 0, C: 0 };
+  
     for (let base of geneSequence.toUpperCase()) {
       if (counts[base] !== undefined) {
         counts[base]++;
       }
     }
-
+  
     const totalBases = counts.A + counts.T + counts.G + counts.C;
-    const ratios = {
-      A: ((counts.A / totalBases) * 100).toFixed(2) + "%",
-      T: ((counts.T / totalBases) * 100).toFixed(2) + "%",
-      G: ((counts.G / totalBases) * 100).toFixed(2) + "%",
-      C: ((counts.C / totalBases) * 100).toFixed(2) + "%",
-    };
-
+    if (totalBases === 0) {
+      alert("Invalid gene sequence. Please check your input.");
+      return;
+    }
+  
     setAnalysis({
       counts,
       totalBases,
-      ratios,
+      ratios: calculateRatios(counts, totalBases),
       reverseComplement: getReverseComplement(geneSequence),
       rnaSequence: transcribeToRNA(geneSequence),
     });
   };
+  
 
-  // Helper functions
+  const calculateRatios = (counts, totalBases) => ({
+    A: ((counts.A / totalBases) * 100).toFixed(2) + "%",
+    T: ((counts.T / totalBases) * 100).toFixed(2) + "%",
+    G: ((counts.G / totalBases) * 100).toFixed(2) + "%",
+    C: ((counts.C / totalBases) * 100).toFixed(2) + "%",
+  });
+
   const getReverseComplement = (sequence) => {
     const complement = { A: "T", T: "A", G: "C", C: "G" };
     return sequence
+      .toUpperCase()
       .split("")
       .reverse()
       .map((base) => complement[base] || base)
       .join("");
   };
 
-  const transcribeToRNA = (sequence) => sequence.replace(/T/g, "U");
-
-  // const highlightCodons = (sequence) =>
-  //   sequence.replace(/(AUG|UAA|UAG|UGA)/g, "<span class='highlight'>$1</span>");
+  const transcribeToRNA = (sequence) =>
+    sequence.toUpperCase().replace(/T/g, "U");
 
   const mutateSequence = () => {
     const bases = ["A", "T", "G", "C"];
     const mutated = geneSequence
+      .toUpperCase()
       .split("")
       .map((base) =>
         Math.random() < 0.1 ? bases[Math.floor(Math.random() * 4)] : base
@@ -68,48 +101,68 @@ const GeneViewer = () => {
   };
 
   const exportToPDF = () => {
+    if (!analysis) return;
     const doc = new jsPDF();
     doc.text("Gene Analysis Results", 10, 10);
     doc.text(`Total Bases: ${analysis.totalBases}`, 10, 20);
     doc.text(`Base Counts:`, 10, 30);
-    doc.text(`  A: ${analysis.counts.A}`, 10, 40);
-    doc.text(`  T: ${analysis.counts.T}`, 10, 50);
-    doc.text(`  G: ${analysis.counts.G}`, 10, 60);
-    doc.text(`  C: ${analysis.counts.C}`, 10, 70);
+    Object.keys(analysis.counts).forEach((key, index) => {
+      doc.text(`  ${key}: ${analysis.counts[key]}`, 10, 40 + index * 10);
+    });
     doc.text(`Base Ratios:`, 10, 80);
-    doc.text(`  A: ${analysis.ratios.A}`, 10, 90);
-    doc.text(`  T: ${analysis.ratios.T}`, 10, 100);
-    doc.text(`  G: ${analysis.ratios.G}`, 10, 110);
-    doc.text(`  C: ${analysis.ratios.C}`, 10, 120);
+    Object.keys(analysis.ratios).forEach((key, index) => {
+      doc.text(`  ${key}: ${analysis.ratios[key]}`, 10, 90 + index * 10);
+    });
     doc.save("gene_analysis.pdf");
   };
 
+  // JSX Structure
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <h1>Gene Viewer</h1>
+        <h1 className={styles.title}>Gene Viewer</h1>
         <Link to="/" className={styles.backButton}>
-          Back to Home page
+          Back to Home
         </Link>
       </header>
+
       <main className={styles.main}>
-        <p>
-          Visualize and explore detailed gene sequences. Enter a gene sequence
-          below to analyze the structure and basic statistics.
+        <p className={styles.description}>
+          Analyze and visualize gene sequences. Enter a custom sequence or
+          choose from predefined ones to explore detailed insights.
         </p>
+
         <div className={styles.inputContainer}>
+          <select
+            className={styles.dropdown}
+            onChange={(e) =>
+              setGeneSequence(predefinedSequences[e.target.value]?.sequence || "")
+            }
+            defaultValue="" // Ensures the placeholder is selected initially
+          >
+            <option value="" disabled hidden>
+              Select a predefined gene sequence
+            </option>
+            {predefinedSequences.map((item, index) => (
+              <option key={index} value={index}>
+                {item.name}
+              </option>
+            ))}
+          </select>
           <textarea
             className={styles.textarea}
-            placeholder="Enter your gene sequence here (e.g., ATGCGTAACGGT)..."
+            placeholder="Enter your gene sequence here..."
             value={geneSequence}
             onChange={(e) => setGeneSequence(e.target.value)}
           />
-          <button className={styles.button} onClick={analyzeGene}>
-            Analyze Gene
-          </button>
-          <button className={styles.button} onClick={mutateSequence}>
-            Simulate Mutation
-          </button>
+          <div className={styles.buttonContainer}>
+            <button className={styles.button} onClick={analyzeGene}>
+              Analyze Gene
+            </button>
+            <button className={styles.button} onClick={mutateSequence}>
+              Simulate Mutation
+            </button>
+          </div>
         </div>
 
         {analysis && (
@@ -122,21 +175,21 @@ const GeneViewer = () => {
               <strong>Base Counts:</strong>
             </p>
             <ul>
-              <li>A: {analysis.counts.A}</li>
-              <li>T: {analysis.counts.T}</li>
-              <li>G: {analysis.counts.G}</li>
-              <li>C: {analysis.counts.C}</li>
+              {Object.keys(analysis.counts).map((key) => (
+                <li key={key}>
+                  {key}: {analysis.counts[key]}
+                </li>
+              ))}
             </ul>
-
-            Gagana, [12/29/24 1:55 PM]
             <p>
               <strong>Base Ratios:</strong>
             </p>
             <ul>
-              <li>A: {analysis.ratios.A}</li>
-              <li>T: {analysis.ratios.T}</li>
-              <li>G: {analysis.ratios.G}</li>
-              <li>C: {analysis.ratios.C}</li>
+              {Object.keys(analysis.ratios).map((key) => (
+                <li key={key}>
+                  {key}: {analysis.ratios[key]}
+                </li>
+              ))}
             </ul>
             <p>
               <strong>Reverse Complement:</strong> {analysis.reverseComplement}

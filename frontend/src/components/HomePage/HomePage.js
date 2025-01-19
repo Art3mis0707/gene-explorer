@@ -64,6 +64,9 @@ const HomePage = () => {
                         <Link to="/proteins/details" className={styles.featureLink}>
                             Explore Protein Details
                         </Link>
+                        <Link to="/proteins/3d-viewer" className={styles.featureLink}>
+                            Explore Protein 3D Viewer
+                        </Link>
                     </div>
                     <div className={styles.featureCard}>
                         <h3>Disease Tracker</h3>
