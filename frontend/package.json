@@ -14,7 +14,8 @@
     "react-dom": "^18.2.0",
     "react-icons": "^5.4.0",
     "react-router-dom": "^6.14.2",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "three": "^0.172.0"
   },
   "scripts": {
     "start": "set PORT=5000 && react-scripts start",

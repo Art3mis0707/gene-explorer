@@ -10,7 +10,7 @@ import GeneViewer from "./components/GeneDetails/GeneViewer";
 import RelatedProteins from "./components/GeneDetails/RelatedProteins";
 import RelatedDiseases from "./components/GeneDetails/RelatedDiseases";
 
-import Protein3DViewer from "./components/ProteinExplorer/Protein3DViewer";
+import Protein3DViewer from "./components/ProteinExplorer/ProteinFunctionPrediction";
 import ProteinExplorer from "./components/ProteinExplorer/proteinDetails";
 
 import DiseaseList from "./components/DiseaseTracker/DiseaseList";
@@ -49,7 +49,7 @@ const App = () => {
           <Route path="/genes/related-diseases" element={<RelatedDiseases />} />
 
           {/* Protein Explorer */}
-          <Route path="/proteins/3d-viewer" element={<Protein3DViewer proteinStructure="PDB_DATA" />} />
+          <Route path="/proteins/function-prediction" element={<Protein3DViewer proteinStructure="PDB_DATA" />} />
           <Route path="/proteins/details" element={<ProteinExplorer />} />
 
           {/* Disease Tracker */}

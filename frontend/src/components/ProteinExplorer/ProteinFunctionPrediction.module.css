@@ -1,0 +1,73 @@
+.container {
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  h2 {
+    color: #4c96af;
+    font-size: 2em;
+  }
+  
+  .inputContainer {
+    margin: 10px 0;
+    text-align: left;
+    padding: 10px;
+  }
+  
+  label {
+    display: block;
+    font-size: 1em;
+    color: #333;
+  }
+  
+  input[type="range"] {
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  span {
+    font-size: 1.2em;
+    margin-left: 10px;
+  }
+  
+  select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+  }
+  
+  button.predictButton {
+    background-color: #4c96af;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  button.predictButton:hover {
+    background-color: #45a049;
+  }
+  
+  .result {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .result h3 {
+    font-size: 1.5em;
+    color: #4CAF50;
+  }
+  
+  .result p {
+    font-size: 1em;
+    color: #333;
+    line-height: 1.5;
+  }
+  

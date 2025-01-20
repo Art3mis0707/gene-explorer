@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./proteinDetails.module.css";
 import { FaMicroscope, FaSearch } from "react-icons/fa";
-import { Radar } from "react-chartjs-2"; // For radar chart (install `chart.js` and `react-chartjs-2`)
+import { Radar } from "react-chartjs-2"; 
 import {
   Chart,
   PointElement,
   RadialLinearScale,
-  LineElement, // For line charts
-  LinearScale, // For scale handling
-  Title, // For chart title
-  Tooltip, // For tooltips
-  Legend, // For the legend
+  LineElement, 
+  LinearScale, 
+  Title, 
+  Tooltip, 
+  Legend, 
 } from "chart.js";
 
-// Register the point element and other necessary components
+
 Chart.register(PointElement, RadialLinearScale, LineElement, LinearScale, Title, Tooltip, Legend);
 
 const proteinData = [
@@ -133,7 +133,7 @@ const proteinData = [
 const ProteinExplorer = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProtein, setSelectedProtein] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   const filteredProteins = proteinData.filter(
     (protein) =>
@@ -160,13 +160,13 @@ const ProteinExplorer = () => {
       }
     : null;
 
-  // Open modal
+  
   const openModal = (protein) => {
     setSelectedProtein(protein);
     setIsModalOpen(true);
   };
 
-  // Close modal
+  
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedProtein(null);
