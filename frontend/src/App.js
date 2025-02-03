@@ -13,9 +13,9 @@ import RelatedDiseases from "./components/GeneDetails/RelatedDiseases";
 import Protein3DViewer from "./components/ProteinExplorer/ProteinFunctionPrediction";
 import ProteinExplorer from "./components/ProteinExplorer/proteinDetails";
 
-import DiseaseList from "./components/DiseaseTracker/DiseaseList";
+//import DiseaseList from "./components/DiseaseTracker/ExploreDiseaseTracker";
 import SearchSymptoms from "./components/DiseaseTracker/SearchSymptoms";
-import DiseaseDetails from "./components/DiseaseTracker/DiseaseDetails";
+//import DiseaseDetails from "./components/DiseaseTracker/DiseaseDetails";
 
 import ArticleList from "./components/ResearchArticles/ArticleList";
 import ArticleDetails from "./components/ResearchArticles/ArticleDetails";
@@ -31,6 +31,7 @@ import Login from "./components/UserManagement/Login";
 import Register from "./components/UserManagement/Register";
 
 import HomePage from "./components/HomePage/HomePage";
+import ExploreDiseaseTracker from "./components/DiseaseTracker/ExploreDiseaseTracker";
 
 const App = () => {
   return (
@@ -53,9 +54,9 @@ const App = () => {
           <Route path="/proteins/details" element={<ProteinExplorer />} />
 
           {/* Disease Tracker */}
-          <Route path="/diseases/list" element={<DiseaseList />} />
+          <Route path="/diseases/list" element={<ExploreDiseaseTracker />} />
           <Route path="/diseases/search-symptoms" element={<SearchSymptoms />} />
-          <Route path="/diseases/details" element={<DiseaseDetails />} />
+          {/* <Route path="/diseases/details" element={<DiseaseDetails />} /> */}
 
           {/* Research Articles */}
           <Route path="/articles/list" element={<ArticleList />} />

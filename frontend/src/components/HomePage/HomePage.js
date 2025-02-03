@@ -71,8 +71,11 @@ const HomePage = () => {
                     <div className={styles.featureCard}>
                         <h3>Disease Tracker</h3>
                         <p>Track diseases, search symptoms, and get detailed insights.</p>
-                        <Link to="/proteins/details" className={styles.featureLink}>
+                        <Link to="/diseases/tracker" className={styles.featureLink}>
                             Explore Disease Tracker
+                        </Link>
+                        <Link to="/diseases/tracker" className={styles.featureLink}>
+                            Search for symptoms
                         </Link>
                     </div>
                     <div className={styles.featureCard}>
