@@ -20,8 +20,8 @@ import ProteinExplorer from "./components/ProteinExplorer/proteinDetails";
 import SearchSymptoms from "./components/DiseaseTracker/SearchSymptoms";
 //import DiseaseDetails from "./components/DiseaseTracker/DiseaseDetails";
 
-import ArticleList from "./components/ResearchArticles/ArticleList";
-import ArticleDetails from "./components/ResearchArticles/ArticleDetails";
+import ResearchArticles from "./components/ResearchArticles/ExploreResearchArticles";
+import ArticlesList from "./components/ResearchArticles/ArticleList";
 
 import GeneDiseaseGraph from "./components/Analytics/GeneDiseaseGraph";
 import MutationTimeline from "./components/Analytics/MutationTimeLine";
@@ -66,8 +66,8 @@ const App = () => {
           {/* <Route path="/diseases/details" element={<DiseaseDetails />} /> */}
 
           {/* Research Articles */}
-          <Route path="/articles/list" element={<ArticleList />} />
-          <Route path="/articles/details" element={<ArticleDetails />} />
+          <Route path="/research/details" element={<ResearchArticles />} />
+          <Route path="/research/list" element={<ArticlesList />} />
 
           {/* Analytics */}
           <Route path="/analytics/gene-disease-graph" element={<GeneDiseaseGraph />} />
