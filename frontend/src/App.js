@@ -1,4 +1,3 @@
-
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -17,11 +16,6 @@ import SearchSymptoms from "./components/DiseaseTracker/SearchSymptoms";
 import RiskPredictionForm from "./components/BreastCancer/RiskPredictionForm";
 
 import ArticleList from "./components/ResearchArticles/ArticleList";
-import ArticleDetails from "./components/ResearchArticles/ArticleDetails";
-
-import GeneDiseaseGraph from "./components/Analytics/GeneDiseaseGraph";
-import MutationTimeline from "./components/Analytics/MutationTimeLine";
-import OrganismGeneTree from "./components/Analytics/OrganismGeneTree";
 
 import FileUploader from "./components/DataUpload/FileUploader";
 import PreviewData from "./components/DataUpload/PreviewData";
@@ -60,22 +54,8 @@ const App = () => {
           <Route path="/diseases/breast-cancer-risk" element={<RiskPredictionForm />} />
 
           {/* Research Articles */}
-          <Route path="/articles/list" element={<ArticleList />} />
-          <Route path="/articles/details" element={<ArticleDetails />} />
-
-          {/* Analytics */}
-          <Route 
-            path="/analytics/gene-disease-graph" 
-            element={<GeneDiseaseGraph />} 
-          />
-          <Route 
-            path="/analytics/mutation-timeline" 
-            element={<MutationTimeline />} 
-          />
-          <Route 
-            path="/analytics/organism-gene-tree" 
-            element={<OrganismGeneTree />} 
-          />
+          <Route path="/research/details" element={<ArticleList />} />
+          <Route path="/research/list" element={<ArticleList />} />
 
           {/* Data Upload */}
           <Route path="/data/upload" element={<FileUploader />} />
@@ -84,11 +64,13 @@ const App = () => {
           {/* User Management */}
           <Route 
             path="/login" 
-            element={
-              <Login onLogin={(data) => console.log("User logged in:", data)} />
-            } 
+            element={<Login onLogin={(data) => console.log("User logged in:", data)} />} 
           />
           <Route path="/register" element={<Register />} />
+
+          {/* Organisms */}
+          <Route path="/organisms/genes" element={<GeneViewer />} />
+          <Route path="/organisms/research" element={<ArticleList />} />
         </Routes>
       </div>
     </Router>

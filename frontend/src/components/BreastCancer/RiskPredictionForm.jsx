@@ -2,114 +2,110 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './RiskPredictionForm.css';
 
-const INITIAL_FORM_STATE = {
-  age: '',
-  menopause: '',
-  tumorSize: '',
-  invNodes: '',
-  metastasis: '',
-  history: '',
-  breast: '',
-  breastQuadrant: '',
-};
-
-const FORM_FIELDS = [
-  {
-    name: 'age',
-    label: 'Age',
-    type: 'number',
-    min: 0,
-    max: 120,
-  },
-  {
-    name: 'menopause',
-    label: 'Menopause',
-    type: 'select',
-    options: [
-      { value: '0', label: 'No' },
-      { value: '1', label: 'Yes' },
-    ],
-  },
-  {
-    name: 'tumorSize',
-    label: 'Tumor Size (cm)',
-    type: 'number',
-    step: '0.1',
-    min: 0,
-  },
-  {
-    name: 'invNodes',
-    label: 'Inv-Nodes',
-    type: 'number',
-    min: 0,
-  },
-  {
-    name: 'metastasis',
-    label: 'Metastasis',
-    type: 'select',
-    options: [
-      { value: '0', label: 'No' },
-      { value: '1', label: 'Yes' },
-    ],
-  },
-  {
-    name: 'history',
-    label: 'Family History',
-    type: 'select',
-    options: [
-      { value: '0', label: 'No' },
-      { value: '1', label: 'Yes' },
-    ],
-  },
-  {
-    name: 'breast',
-    label: 'Breast',
-    type: 'select',
-    options: [
-      { value: '0', label: 'Left' },
-      { value: '1', label: 'Right' },
-    ],
-  },
-  {
-    name: 'breastQuadrant',
-    label: 'Breast Quadrant',
-    type: 'select',
-    options: [
-      { value: '0', label: 'Central' },
-      { value: '1', label: 'Upper Left' },
-      { value: '2', label: 'Lower Left' },
-      { value: '3', label: 'Upper Right' },
-      { value: '4', label: 'Lower Right' },
-    ],
-  },
-];
-
 const RiskPredictionForm = () => {
-  const [formData, setFormData] = useState(INITIAL_FORM_STATE);
-  const [prediction, setPrediction] = useState(null);
+  const [formData, setFormData] = useState({
+    age: '',
+    menopause: '',
+    tumorSize: '',
+    invNodes: '',
+    metastasis: '',
+    history: '',
+    breast: '',
+    breastQuadrant: '',
+  });
+  const [prediction, setPrediction] = useState('');
   const [contributingFactors, setContributingFactors] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const analyzeContributingFactors = (inputs) => {
+    const factors = [];
+    const thresholds = [
+      {
+        name: "Age",
+        value: inputs[0],
+        threshold: 50,
+        explanation: "Older age increases risk"
+      },
+      {
+        name: "Menopause",
+        value: inputs[1],
+        threshold: 0,
+        explanation: "Menopause status may increase risk"
+      },
+      {
+        name: "Tumor Size",
+        value: inputs[2],
+        threshold: 20,
+        explanation: "Larger tumor size increases risk"
+      },
+      {
+        name: "Inv-Nodes",
+        value: inputs[3],
+        threshold: 0,
+        explanation: "Higher lymph node involvement increases risk"
+      },
+      {
+        name: "Metastasis",
+        value: inputs[4],
+        threshold: 0,
+        explanation: "Metastasis presence increases risk"
+      },
+      {
+        name: "History",
+        value: inputs[5],
+        threshold: 0,
+        explanation: "History of cancer increases risk"
+      },
+      {
+        name: "Breast Location",
+        value: inputs[6],
+        threshold: -1,
+        explanation: inputs[6] === 0 ? "Left breast affected" : "Right breast affected"
+      },
+      {
+        name: "Breast Quadrant",
+        value: inputs[7],
+        threshold: -1,
+        explanation: getQuadrantExplanation(inputs[7])
+      }
+    ];
+
+    thresholds.forEach(factor => {
+      if (factor.threshold === -1 || factor.value > factor.threshold) {
+        factors.push({
+          name: factor.name,
+          value: factor.value,
+          explanation: factor.explanation
+        });
+      }
+    });
+
+    return factors;
   };
 
-  const resetForm = () => {
-    setFormData(INITIAL_FORM_STATE);
-    setPrediction(null);
-    setContributingFactors([]);
-    setError('');
+  const getQuadrantExplanation = (quadrant) => {
+    const quadrants = {
+      0: "Central location",
+      1: "Upper Left quadrant",
+      2: "Lower Left quadrant",
+      3: "Upper Right quadrant",
+      4: "Lower Right quadrant"
+    };
+    return quadrants[quadrant] || "Unknown quadrant";
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setPrediction(null);
+    setPrediction('');
     setContributingFactors([]);
     setLoading(true);
 
@@ -125,97 +121,167 @@ const RiskPredictionForm = () => {
         parseInt(formData.breastQuadrant),
       ];
 
-      const response = await axios.post('http://127.0.0.1:5000/predict', {
-        features,
+      if (features.some(isNaN)) {
+        throw new Error('Please fill all fields with valid numbers');
+      }
+
+      const response = await axios.post('http://localhost:5000/predict', {
+        features: features
       });
 
-      setPrediction(response.data.prediction === 1 ? 'High Risk' : 'Low Risk');
-      if (response.data.contributing_factors) {
-        setContributingFactors(response.data.contributing_factors);
+      if (response.data && response.data.prediction !== undefined) {
+        const predictionResult = response.data.prediction === 1 ? 'High Risk' : 'Low Risk';
+        setPrediction(predictionResult);
+        setContributingFactors(analyzeContributingFactors(features));
+      } else {
+        throw new Error('Invalid response from server');
       }
     } catch (err) {
-      setError(
-        err.response?.data?.error || 
-        'Error while making the prediction. Please check the inputs or try again.'
-      );
+      console.error('Prediction error:', err);
+      setError('Error while making the prediction. Please check the inputs or try again.');
     } finally {
       setLoading(false);
     }
   };
 
-  const renderFormField = (field) => {
-    const commonProps = {
-      name: field.name,
-      value: formData[field.name],
-      onChange: handleChange,
-      required: true,
-      id: field.name,
-    };
-
-    if (field.type === 'select') {
-      return (
-        <select {...commonProps}>
-          <option value="">Select {field.label}</option>
-          {field.options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      );
-    }
-
-    return (
-      <input
-        type={field.type}
-        {...commonProps}
-        min={field.min}
-        max={field.max}
-        step={field.step}
-      />
-    );
-  };
-
   return (
     <div className="form-container">
       <h2>Breast Cancer Risk Prediction</h2>
-      
       <form onSubmit={handleSubmit}>
-        {FORM_FIELDS.map((field) => (
-          <div key={field.name} className="form-group">
-            <label htmlFor={field.name}>{field.label}:</label>
-            {renderFormField(field)}
-          </div>
-        ))}
-
-        <div className="button-group">
-          <button type="submit" disabled={loading} className="submit-button">
-            {loading ? 'Processing...' : 'Predict Risk'}
-          </button>
-          <button 
-            type="button" 
-            onClick={resetForm} 
-            disabled={loading}
-            className="reset-button"
-          >
-            Reset Form
-          </button>
+        <div className="form-group">
+          <label>Age:</label>
+          <input
+            type="number"
+            name="age"
+            value={formData.age}
+            onChange={handleChange}
+            min="0"
+            max="120"
+            required
+          />
         </div>
+
+        <div className="form-group">
+          <label>Menopause:</label>
+          <select
+            name="menopause"
+            value={formData.menopause}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select option</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>Tumor Size (in mm):</label>
+          <input
+            type="number"
+            name="tumorSize"
+            value={formData.tumorSize}
+            onChange={handleChange}
+            min="0"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Inv-Nodes:</label>
+          <input
+            type="number"
+            name="invNodes"
+            value={formData.invNodes}
+            onChange={handleChange}
+            min="0"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Metastasis:</label>
+          <select
+            name="metastasis"
+            value={formData.metastasis}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select option</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>History:</label>
+          <select
+            name="history"
+            value={formData.history}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select option</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>Breast:</label>
+          <select
+            name="breast"
+            value={formData.breast}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select option</option>
+            <option value="0">Left</option>
+            <option value="1">Right</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>Breast Quadrant:</label>
+          <select
+            name="breastQuadrant"
+            value={formData.breastQuadrant}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select option</option>
+            <option value="0">Central</option>
+            <option value="1">Upper Left</option>
+            <option value="2">Lower Left</option>
+            <option value="3">Upper Right</option>
+            <option value="4">Lower Right</option>
+          </select>
+        </div>
+
+        <button type="submit" disabled={loading}>
+          {loading ? 'Processing...' : 'Predict Risk'}
+        </button>
       </form>
 
       {prediction && (
-        <div className={`prediction ${prediction === 'High Risk' ? 'high-risk' : 'low-risk'}`}>
+        <div className={`prediction-results ${prediction === 'High Risk' ? 'high-risk' : 'low-risk'}`}>
           <h3>Prediction: {prediction}</h3>
-          {contributingFactors.length > 0 && (
-            <div className="contributing-factors">
-              <h4>Contributing Factors:</h4>
+          
+          <div className="contributing-factors">
+            <h4>Contributing Factors:</h4>
+            {contributingFactors.length > 0 ? (
               <ul>
                 {contributingFactors.map((factor, index) => (
-                  <li key={index}>{factor}</li>
+                  <li key={index}>
+                    <strong>{factor.name}:</strong> {factor.explanation}
+                    {factor.value !== undefined && ` (Value: ${factor.value})`}
+                  </li>
                 ))}
               </ul>
-            </div>
-          )}
+            ) : (
+              <p>No significant risk factors detected.</p>
+            )}
+          </div>
         </div>
       )}
       

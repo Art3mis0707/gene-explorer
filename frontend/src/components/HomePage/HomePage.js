@@ -43,7 +43,18 @@ const HomePage = () => {
                     Explore detailed information about genes, proteins, and their related diseases.
                     Navigate through our tools to visualize, analyze, and discover insights!
                 </p>
+                
                 <div className={styles.features}>
+                    <div className={styles.featureCard}>
+                        <h3>Organisms</h3>
+                        <p>Explore organisms' genetics, their role in evolution and disease, and related research.</p>
+                        <Link to="/organisms/genes" className={styles.featureLink}>
+                            Explore Organism Genes
+                        </Link>
+                        <Link to="/organisms/research" className={styles.featureLink}>
+                            Explore Research on Organisms
+                        </Link>
+                    </div>
                     <div className={styles.featureCard}>
                         <h3>Gene Details</h3>
                         <p>Get insights into genes and their relationships with proteins and diseases.</p>
@@ -59,22 +70,22 @@ const HomePage = () => {
                     </div>
                     <div className={styles.featureCard}>
                         <h3>Protein Explorer</h3>
-                        <p>Analyze proteins in detail, including their structures and related data.</p>
+                        <p>Analyze proteins in detail, including their structures, functions, interactions, and related data.</p>
                         <Link to="/proteins/details" className={styles.featureLink}>
                             Explore Protein Details
                         </Link>
                         <Link to="/proteins/function-prediction" className={styles.featureLink}>
-                            Explore protein functions
+                            Explore Protein Functions
                         </Link>
                     </div>
                     <div className={styles.featureCard}>
-                        <h3>Disease Analysis</h3>
-                        <p>Track diseases, analyze risks, and search symptoms.</p>
+                        <h3>Disease Tracker</h3>
+                        <p>Track various diseases, search symptoms efficiently, and get detailed health insights.</p>
                         <Link to="/diseases/tracker" className={styles.featureLink}>
-                            Disease Tracker
+                            Explore Disease Tracker
                         </Link>
                         <Link to="/diseases/search-symptoms" className={styles.featureLink}>
-                            Search Symptoms
+                            Search for symptoms
                         </Link>
                         <Link to="/diseases/breast-cancer-risk" className={styles.featureLink}>
                             Breast Cancer Risk Assessment
@@ -83,21 +94,11 @@ const HomePage = () => {
                     <div className={styles.featureCard}>
                         <h3>Research Articles</h3>
                         <p>Browse and read the latest research articles in bioinformatics.</p>
-                        <Link to="/articles/list" className={styles.featureLink}>
+                        <Link to="/research/details" className={styles.featureLink}>
                             Explore Research Articles
                         </Link>
-                    </div>
-                    <div className={styles.featureCard}>
-                        <h3>Analytics Tools</h3>
-                        <p>Visualize and analyze genetic and disease data.</p>
-                        <Link to="/analytics/gene-disease-graph" className={styles.featureLink}>
-                            Gene-Disease Network
-                        </Link>
-                        <Link to="/analytics/mutation-timeline" className={styles.featureLink}>
-                            Mutation Timeline
-                        </Link>
-                        <Link to="/analytics/organism-gene-tree" className={styles.featureLink}>
-                            Organism Gene Tree
+                        <Link to="/research/list" className={styles.featureLink}>
+                            Articles List
                         </Link>
                     </div>
                 </div>
