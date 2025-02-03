@@ -44,7 +44,18 @@ const HomePage = () => {
                     Explore detailed information about genes, proteins, and their related diseases.
                     Navigate through our tools to visualize, analyze, and discover insights!
                 </p>
+                
                 <div className={styles.features}>
+                <div className={styles.featureCard}>
+                        <h3>Organisms</h3>
+                        <p>Explore organisms' genetics, their role in evolution and disease, and related research.</p>
+                        <Link to="/organisms/genes" className={styles.featureLink}>
+                        Explore Organism Genes
+                        </Link>
+                        <Link to="/organisms/research" className={styles.featureLink}>
+                        Explore Research on Organisms
+                        </Link>
+                    </div>
                     <div className={styles.featureCard}>
                         <h3>Gene Details</h3>
                         <p>Get insights into genes and their relationships with proteins and diseases.</p>
@@ -65,26 +76,30 @@ const HomePage = () => {
                             Explore Protein Details
                         </Link>
                         <Link to="/proteins/function-prediction" className={styles.featureLink}>
-                            Explore protein functions
+                            Explore Protein Functions
                         </Link>
                     </div>
                     <div className={styles.featureCard}>
                         <h3>Disease Tracker</h3>
-                        <p>Track diseases, search symptoms, and get detailed insights.</p>
+                        <p>Track various diseases, search symptoms efficiently, and get detailed health insights.</p>
                         <Link to="/diseases/tracker" className={styles.featureLink}>
                             Explore Disease Tracker
                         </Link>
-                        <Link to="/diseases/tracker" className={styles.featureLink}>
+                        <Link to="/diseases/search-symptoms" className={styles.featureLink}>
                             Search for symptoms
                         </Link>
                     </div>
                     <div className={styles.featureCard}>
                         <h3>Research Articles</h3>
                         <p>Browse and read the latest research articles in bioinformatics.</p>
-                        <Link to="/proteins/details" className={styles.featureLink}>
+                        <Link to="/research/details" className={styles.featureLink}>
                             Explore Research Articles
                         </Link>
+                        <Link to="/research/list" className={styles.featureLink}>
+                            Articles List
+                        </Link>
                     </div>
+                    
                 </div>
             </main>
 

@@ -6,6 +6,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SearchBar from "./components/DashBoard/SearchBar";
 import PieChart from "./components/DashBoard/PieChart";
 
+import OrganismExplorer from "./components/Organisms/OrganismGenes";
+import OrganismResearch from "./components/Organisms/OrganismResearch";
+
 import GeneViewer from "./components/GeneDetails/GeneViewer";
 import RelatedProteins from "./components/GeneDetails/RelatedProteins";
 import RelatedDiseases from "./components/GeneDetails/RelatedDiseases";
@@ -43,6 +46,10 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="search" element={<SearchBar />} />
           <Route path="pie-chart" element={<PieChart />} />
+          
+          {/* Organism */}
+          <Route path="/organisms/genes" element={<OrganismExplorer />} />
+          <Route path="/organisms/research" element={<OrganismResearch />} />
 
           {/* Gene Details */}
           <Route path="/genes/viewer" element={<GeneViewer />} />
