@@ -54,7 +54,7 @@ const App = () => {
           <Route path="/proteins/details" element={<ProteinExplorer />} />
 
           {/* Disease Tracker */}
-          <Route path="/diseases/list" element={<ExploreDiseaseTracker />} />
+          <Route path="/diseases/tracker" element={<ExploreDiseaseTracker />} />
           <Route path="/diseases/search-symptoms" element={<SearchSymptoms />} />
           {/* <Route path="/diseases/details" element={<DiseaseDetails />} /> */}
 
