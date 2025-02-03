@@ -1,88 +1,79 @@
-.container {
-    max-width: 1000px;
+.researchContainer {
+    max-width: 1100px;
     margin: auto;
     padding: 20px;
     text-align: center;
 }
 
 .heading {
-    font-size: 24px;
-    margin-bottom: 15px;
-    color: #0056b3;
-    font-weight: bold;
-}
-
-.searchBar {
-    width: 80%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 2px solid #007bff;
-    border-radius: 8px;
-    font-size: 16px;
-    outline: none;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    font-size: 28px;
     margin-bottom: 30px;
+    color: #007bff;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
-.card {
-    background: #f8f9fa;
+.researchList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.researchCard {
+    background: #f9f9f9;
     border: 2px solid #007bff;
     border-radius: 10px;
-    padding: 15px;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    cursor: pointer;
-}
-
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 123, 255, 0.2);
-}
-
-h3 {
-    color: #0056b3;
-}
-
-p {
-    font-size: 14px;
-    margin: 5px 0;
-}
-
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modalContent {
-    background: white;
     padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    width: 300px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.closeButton {
-    margin-top: 15px;
-    background: #d9534f;
-    color: white;
-    border: none;
-    padding: 8px 12px;
+.researchCard:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+    font-size: 20px;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.author, .year {
+    font-size: 16px;
+    color: #333;
+}
+
+.abstract {
+    font-size: 14px;
+    color: #555;
+    margin: 15px 0;
+}
+
+.readMore {
+    font-size: 16px;
+    color: #007bff;
+    text-decoration: none;
+    border: 2px solid #007bff;
+    padding: 8px 15px;
     border-radius: 5px;
-    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-.closeButton:hover {
-    background: #c9302c;
+.readMore:hover {
+    background: #007bff;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .researchList {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .researchList {
+        grid-template-columns: 1fr;
+    }
 }

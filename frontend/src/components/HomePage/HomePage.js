@@ -71,7 +71,7 @@ const HomePage = () => {
                     </div>
                     <div className={styles.featureCard}>
                         <h3>Protein Explorer</h3>
-                        <p>Analyze proteins in detail, including their structures and related data.</p>
+                        <p>Analyze proteins in detail, including their structures, functions, interactions, and related data.</p>
                         <Link to="/proteins/details" className={styles.featureLink}>
                             Explore Protein Details
                         </Link>
