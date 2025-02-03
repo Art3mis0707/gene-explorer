@@ -33,7 +33,6 @@ const HomePage = () => {
                             </button>
                         </li>
                     </ul>
-
                 </nav>
             </header>
 
@@ -69,20 +68,36 @@ const HomePage = () => {
                         </Link>
                     </div>
                     <div className={styles.featureCard}>
-                        <h3>Disease Tracker</h3>
-                        <p>Track diseases, search symptoms, and get detailed insights.</p>
+                        <h3>Disease Analysis</h3>
+                        <p>Track diseases, analyze risks, and search symptoms.</p>
                         <Link to="/diseases/tracker" className={styles.featureLink}>
-                            Explore Disease Tracker
+                            Disease Tracker
                         </Link>
-                        <Link to="/diseases/tracker" className={styles.featureLink}>
-                            Search for symptoms
+                        <Link to="/diseases/search-symptoms" className={styles.featureLink}>
+                            Search Symptoms
+                        </Link>
+                        <Link to="/diseases/breast-cancer-risk" className={styles.featureLink}>
+                            Breast Cancer Risk Assessment
                         </Link>
                     </div>
                     <div className={styles.featureCard}>
                         <h3>Research Articles</h3>
                         <p>Browse and read the latest research articles in bioinformatics.</p>
-                        <Link to="/proteins/details" className={styles.featureLink}>
+                        <Link to="/articles/list" className={styles.featureLink}>
                             Explore Research Articles
+                        </Link>
+                    </div>
+                    <div className={styles.featureCard}>
+                        <h3>Analytics Tools</h3>
+                        <p>Visualize and analyze genetic and disease data.</p>
+                        <Link to="/analytics/gene-disease-graph" className={styles.featureLink}>
+                            Gene-Disease Network
+                        </Link>
+                        <Link to="/analytics/mutation-timeline" className={styles.featureLink}>
+                            Mutation Timeline
+                        </Link>
+                        <Link to="/analytics/organism-gene-tree" className={styles.featureLink}>
+                            Organism Gene Tree
                         </Link>
                     </div>
                 </div>

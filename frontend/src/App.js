@@ -1,8 +1,8 @@
+
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Import components
-// import OverviewTiles from "./components/DashBoard/OverviewTiles";
 import SearchBar from "./components/DashBoard/SearchBar";
 import PieChart from "./components/DashBoard/PieChart";
 
@@ -13,9 +13,8 @@ import RelatedDiseases from "./components/GeneDetails/RelatedDiseases";
 import Protein3DViewer from "./components/ProteinExplorer/ProteinFunctionPrediction";
 import ProteinExplorer from "./components/ProteinExplorer/proteinDetails";
 
-//import DiseaseList from "./components/DiseaseTracker/ExploreDiseaseTracker";
 import SearchSymptoms from "./components/DiseaseTracker/SearchSymptoms";
-//import DiseaseDetails from "./components/DiseaseTracker/DiseaseDetails";
+import RiskPredictionForm from "./components/BreastCancer/RiskPredictionForm";
 
 import ArticleList from "./components/ResearchArticles/ArticleList";
 import ArticleDetails from "./components/ResearchArticles/ArticleDetails";
@@ -39,7 +38,6 @@ const App = () => {
       <div className="app">
         <Routes>
           {/* Dashboard */}
-          {/* <Route path="/" element={<OverviewTiles stats={{ genes: 100, proteins: 200, diseases: 50, organisms: 30, articles: 120 }} />}></Route> */}
           <Route path="/" element={<HomePage />} />
           <Route path="search" element={<SearchBar />} />
           <Route path="pie-chart" element={<PieChart />} />
@@ -50,29 +48,46 @@ const App = () => {
           <Route path="/genes/related-diseases" element={<RelatedDiseases />} />
 
           {/* Protein Explorer */}
-          <Route path="/proteins/function-prediction" element={<Protein3DViewer proteinStructure="PDB_DATA" />} />
+          <Route 
+            path="/proteins/function-prediction" 
+            element={<Protein3DViewer proteinStructure="PDB_DATA" />} 
+          />
           <Route path="/proteins/details" element={<ProteinExplorer />} />
 
-          {/* Disease Tracker */}
+          {/* Disease Tracker and Risk Assessment */}
           <Route path="/diseases/tracker" element={<ExploreDiseaseTracker />} />
           <Route path="/diseases/search-symptoms" element={<SearchSymptoms />} />
-          {/* <Route path="/diseases/details" element={<DiseaseDetails />} /> */}
+          <Route path="/diseases/breast-cancer-risk" element={<RiskPredictionForm />} />
 
           {/* Research Articles */}
           <Route path="/articles/list" element={<ArticleList />} />
           <Route path="/articles/details" element={<ArticleDetails />} />
 
           {/* Analytics */}
-          <Route path="/analytics/gene-disease-graph" element={<GeneDiseaseGraph />} />
-          <Route path="/analytics/mutation-timeline" element={<MutationTimeline />} />
-          <Route path="/analytics/organism-gene-tree" element={<OrganismGeneTree />} />
+          <Route 
+            path="/analytics/gene-disease-graph" 
+            element={<GeneDiseaseGraph />} 
+          />
+          <Route 
+            path="/analytics/mutation-timeline" 
+            element={<MutationTimeline />} 
+          />
+          <Route 
+            path="/analytics/organism-gene-tree" 
+            element={<OrganismGeneTree />} 
+          />
 
           {/* Data Upload */}
           <Route path="/data/upload" element={<FileUploader />} />
           <Route path="/data/preview" element={<PreviewData />} />
 
           {/* User Management */}
-          <Route path="/login" element={<Login onLogin={(data) => console.log("User logged in:", data)} />} />
+          <Route 
+            path="/login" 
+            element={
+              <Login onLogin={(data) => console.log("User logged in:", data)} />
+            } 
+          />
           <Route path="/register" element={<Register />} />
         </Routes>
       </div>
