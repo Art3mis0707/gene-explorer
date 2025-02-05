@@ -2,8 +2,16 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Import components
+// import OverviewTiles from "./components/DashBoard/OverviewTiles";
 import SearchBar from "./components/DashBoard/SearchBar";
 import PieChart from "./components/DashBoard/PieChart";
+
+import RiskPredictionForm from "./components/BreastCancer/RiskPredictionForm";
+
+
+
+import OrganismExplorer from "./components/Organisms/OrganismGenes";
+import OrganismResearch from "./components/Organisms/OrganismResearch";
 
 import GeneViewer from "./components/GeneDetails/GeneViewer";
 import RelatedProteins from "./components/GeneDetails/RelatedProteins";
@@ -12,10 +20,16 @@ import RelatedDiseases from "./components/GeneDetails/RelatedDiseases";
 import Protein3DViewer from "./components/ProteinExplorer/ProteinFunctionPrediction";
 import ProteinExplorer from "./components/ProteinExplorer/proteinDetails";
 
+//import DiseaseList from "./components/DiseaseTracker/ExploreDiseaseTracker";
 import SearchSymptoms from "./components/DiseaseTracker/SearchSymptoms";
-import RiskPredictionForm from "./components/BreastCancer/RiskPredictionForm";
+//import DiseaseDetails from "./components/DiseaseTracker/DiseaseDetails";
 
-import ArticleList from "./components/ResearchArticles/ArticleList";
+import ResearchArticles from "./components/ResearchArticles/ExploreResearchArticles";
+import ArticlesList from "./components/ResearchArticles/ArticleList";
+
+import GeneDiseaseGraph from "./components/Analytics/GeneDiseaseGraph";
+import MutationTimeline from "./components/Analytics/MutationTimeLine";
+import OrganismGeneTree from "./components/Analytics/OrganismGeneTree";
 
 import FileUploader from "./components/DataUpload/FileUploader";
 import PreviewData from "./components/DataUpload/PreviewData";
@@ -32,9 +46,15 @@ const App = () => {
       <div className="app">
         <Routes>
           {/* Dashboard */}
+          {/* <Route path="/" element={<OverviewTiles stats={{ genes: 100, proteins: 200, diseases: 50, organisms: 30, articles: 120 }} />}></Route> */}
           <Route path="/" element={<HomePage />} />
           <Route path="search" element={<SearchBar />} />
           <Route path="pie-chart" element={<PieChart />} />
+          
+          
+          {/* Organism */}
+          <Route path="/organisms/genes" element={<OrganismExplorer />} />
+          <Route path="/organisms/research" element={<OrganismResearch />} />
 
           {/* Gene Details */}
           <Route path="/genes/viewer" element={<GeneViewer />} />
@@ -42,35 +62,31 @@ const App = () => {
           <Route path="/genes/related-diseases" element={<RelatedDiseases />} />
 
           {/* Protein Explorer */}
-          <Route 
-            path="/proteins/function-prediction" 
-            element={<Protein3DViewer proteinStructure="PDB_DATA" />} 
-          />
+          <Route path="/proteins/function-prediction" element={<Protein3DViewer proteinStructure="PDB_DATA" />} />
           <Route path="/proteins/details" element={<ProteinExplorer />} />
 
-          {/* Disease Tracker and Risk Assessment */}
+          {/* Disease Tracker */}
           <Route path="/diseases/tracker" element={<ExploreDiseaseTracker />} />
           <Route path="/diseases/search-symptoms" element={<SearchSymptoms />} />
+          {/* <Route path="/diseases/details" element={<DiseaseDetails />} /> */}
           <Route path="/diseases/breast-cancer-risk" element={<RiskPredictionForm />} />
 
           {/* Research Articles */}
-          <Route path="/research/details" element={<ArticleList />} />
-          <Route path="/research/list" element={<ArticleList />} />
+          <Route path="/research/details" element={<ResearchArticles />} />
+          <Route path="/research/list" element={<ArticlesList />} />
+
+          {/* Analytics */}
+          <Route path="/analytics/gene-disease-graph" element={<GeneDiseaseGraph />} />
+          <Route path="/analytics/mutation-timeline" element={<MutationTimeline />} />
+          <Route path="/analytics/organism-gene-tree" element={<OrganismGeneTree />} />
 
           {/* Data Upload */}
           <Route path="/data/upload" element={<FileUploader />} />
           <Route path="/data/preview" element={<PreviewData />} />
 
           {/* User Management */}
-          <Route 
-            path="/login" 
-            element={<Login onLogin={(data) => console.log("User logged in:", data)} />} 
-          />
+          <Route path="/login" element={<Login onLogin={(data) => console.log("User logged in:", data)} />} />
           <Route path="/register" element={<Register />} />
-
-          {/* Organisms */}
-          <Route path="/organisms/genes" element={<GeneViewer />} />
-          <Route path="/organisms/research" element={<ArticleList />} />
         </Routes>
       </div>
     </Router>

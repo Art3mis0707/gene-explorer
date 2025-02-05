@@ -1,13 +1,17 @@
 // db/index.js
 const { Pool } = require('pg');
-require('dotenv').config();
+require('dotenv').config();  // Make sure to create a .env file
 
 const pool = new Pool({
-  user: 'postgres',
+  user:  'postgres',
   host: 'localhost',
-  database: 'postgres',
-  password: '1234',
-  port: 5432,
+  database: 'gene_explorer',
+  password:'gayatri0707',
+  port:5432,
+});
+
+pool.on('connect', () => {
+  console.log('Connected to PostgreSQL');
 });
 
 module.exports = pool;

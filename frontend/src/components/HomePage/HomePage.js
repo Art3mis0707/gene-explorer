@@ -106,7 +106,7 @@ const HomePage = () => {
 
             {/* Footer */}
             <footer className={styles.footer}>
-                <p>&copy; 2024 Gene Explorer. All Rights Reserved.</p>
+                <p>&copy; 2025 Gene Explorer. All Rights Reserved.</p>
             </footer>
         </div>
     );

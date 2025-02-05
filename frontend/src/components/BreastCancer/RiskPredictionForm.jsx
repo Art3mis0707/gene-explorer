@@ -18,6 +18,8 @@ const RiskPredictionForm = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // These helper functions are no longer needed if the backend sends contributing factors.
+  // You may remove them if desired.
   const analyzeContributingFactors = (inputs) => {
     const factors = [];
     const thresholds = [
@@ -125,14 +127,15 @@ const RiskPredictionForm = () => {
         throw new Error('Please fill all fields with valid numbers');
       }
 
-      const response = await axios.post('http://localhost:5000/predict', {
+      const response = await axios.post('http://127.0.0.1:5000/predict', {
         features: features
       });
 
       if (response.data && response.data.prediction !== undefined) {
         const predictionResult = response.data.prediction === 1 ? 'High Risk' : 'Low Risk';
         setPrediction(predictionResult);
-        setContributingFactors(analyzeContributingFactors(features));
+        // Use contributing factors returned by the backend
+        setContributingFactors(response.data.contributing_factors);
       } else {
         throw new Error('Invalid response from server');
       }
@@ -273,8 +276,7 @@ const RiskPredictionForm = () => {
               <ul>
                 {contributingFactors.map((factor, index) => (
                   <li key={index}>
-                    <strong>{factor.name}:</strong> {factor.explanation}
-                    {factor.value !== undefined && ` (Value: ${factor.value})`}
+                    <strong>{factor}</strong>
                   </li>
                 ))}
               </ul>

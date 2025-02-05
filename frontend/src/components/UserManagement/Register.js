@@ -1,4 +1,3 @@
-// src/components/UserManagement/Register.js
 import React, { useState } from "react";
 import styles from "./Register.module.css";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +10,10 @@ const RegisterPage = () => {
     userType: "User",
     affiliation: "",
   });
+  
+  const [error, setError] = useState(""); // Handle errors
+  const [success, setSuccess] = useState(""); // Handle success messages
+  
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -20,23 +23,28 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(""); // Reset errors
+    setSuccess("");
+
     try {
       const response = await fetch("http://localhost:5001/api/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
+
       const data = await response.json();
 
       if (response.ok) {
-        alert("Registration successful. You can now log in.");
+        setSuccess("Registration successful. You can now log in.");
+        alert("Registration successful! Redirecting to login.");
         navigate("/login");
       } else {
-        alert(data.error || "Registration failed.");
+        setError(data.error || "Registration failed.");
       }
     } catch (err) {
-      alert("Server error. Please try again later.");
-      console.error(err);
+      setError("Server error. Please try again later.");
+      console.error("Error:", err);
     }
   };
 
@@ -52,11 +60,16 @@ const RegisterPage = () => {
         </div>
         <nav className={styles.nav}>
           <button onClick={handleHomeClick} className={styles.homeButton}>
-            Back to Home page
+            Back to Home Page
           </button>
         </nav>
       </header>
+      
       <h2>Register</h2>
+
+      {error && <p className={styles.error}>{error}</p>}
+      {success && <p className={styles.success}>{success}</p>}
+
       <div className={styles.registerFormContainer}>
         <form onSubmit={handleSubmit} className={styles.form}>
           <label>
@@ -116,6 +129,7 @@ const RegisterPage = () => {
           </button>
         </form>
       </div>
+
       <footer className={styles.footer}>
         <p>&copy; 2025 Gene Explorer. All Rights Reserved.</p>
       </footer>

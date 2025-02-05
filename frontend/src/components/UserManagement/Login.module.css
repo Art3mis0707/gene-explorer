@@ -55,6 +55,14 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.loginForm h2 {
+  color: black;  /* 🔥 Changed from default to black */
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+
 .loginForm input {
   width: 100%;
   padding: 10px;

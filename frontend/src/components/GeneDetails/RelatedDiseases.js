@@ -1,108 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./RelatedDiseases.module.css";
 import { FaDna, FaDisease } from "react-icons/fa";
 
-// Extended data for genes and their related diseases
-const geneData = [
-  {
-    name: "Human Insulin Gene",
-    sequence: "ATGCCCTCTTGCAGTTTTTTCTG",
-    diseases: [
-      {
-        name: "Diabetes Mellitus Type 1",
-        description: "An autoimmune condition where the pancreas produces little or no insulin.",
-      },
-      {
-        name: "Diabetes Mellitus Type 2",
-        description: "A metabolic disorder affecting blood sugar regulation.",
-      },
-    ],
-  },
-  {
-    name: "Lactase Gene",
-    sequence: "TGGCCATTAGCGTTCTCAGT",
-    diseases: [
-      {
-        name: "Lactose Intolerance",
-        description: "Inability to digest lactose in dairy products due to lactase deficiency.",
-      },
-    ],
-  },
-  {
-    name: "Hemoglobin Beta Gene",
-    sequence: "CACGTGTTTTGGGAGTTGTC",
-    diseases: [
-      {
-        name: "Sickle Cell Disease",
-        description: "A genetic blood disorder causing red blood cells to assume a sickle shape.",
-      },
-      {
-        name: "Beta Thalassemia",
-        description: "Reduced production of hemoglobin, leading to anemia.",
-      },
-    ],
-  },
-  {
-    name: "BRCA1 Gene",
-    sequence: "AAGTCACAGTAGCTGCCTGA",
-    diseases: [
-      {
-        name: "Breast Cancer",
-        description: "Inherited mutations in BRCA1 significantly increase breast cancer risk.",
-      },
-      {
-        name: "Ovarian Cancer",
-        description: "A cancer linked to BRCA1 mutations, affecting the ovaries.",
-      },
-    ],
-  },
-  {
-    name: "CFTR Gene (Cystic Fibrosis)",
-    sequence: "CTTGGAGCAGATGCTGTACC",
-    diseases: [
-      {
-        name: "Cystic Fibrosis",
-        description: "A hereditary condition causing severe damage to the lungs and digestive system.",
-      },
-    ],
-  },
-  {
-    name: "APOE Gene",
-    sequence: "GAGGGAGGCAAACTGACTGC",
-    diseases: [
-      {
-        name: "Alzheimer's Disease",
-        description: "APOE gene variants are associated with an increased risk of Alzheimer's.",
-      },
-    ],
-  },
-  {
-    name: "EGFR Gene",
-    sequence: "CTGAGTGGAGATCGTCCTGC",
-    diseases: [
-      {
-        name: "Lung Cancer",
-        description: "EGFR mutations are often found in non-small cell lung cancer.",
-      },
-    ],
-  },
-  {
-    name: "TP53 Tumor Suppressor Gene",
-    sequence: "AGCTACGGCGGTGTGACCGT",
-    diseases: [
-      {
-        name: "Li-Fraumeni Syndrome",
-        description: "A rare hereditary disorder associated with an increased cancer risk.",
-      },
-    ],
-  },
-  // Add additional genes as needed
-];
-
 const RelatedDiseases = () => {
+  const [genes, setGenes] = useState([]);
+  const [diseases, setDiseases] = useState([]);
   const [selectedGene, setSelectedGene] = useState(null);
   const [expandedDiseases, setExpandedDiseases] = useState({});
+
+  useEffect(() => {
+    fetch("http://localhost:5001/api/genes/related-diseases")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch gene data");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log("Fetched data:", data);
+        // Set state based on the returned object
+        setGenes(data.genes || []);
+        setDiseases(data.diseases || []);
+      })
+      .catch((error) => console.error("Error fetching gene data:", error));
+  }, []);
 
   const handleGeneSelect = (gene) => {
     setSelectedGene(gene);
@@ -115,6 +37,11 @@ const RelatedDiseases = () => {
       [index]: !prev[index],
     }));
   };
+
+  // Filter diseases that match the selected gene's ID
+  const diseasesForSelectedGene = selectedGene
+    ? diseases.filter((d) => d.gene_id === selectedGene.id)
+    : [];
 
   return (
     <div className={styles.page}>
@@ -129,17 +56,23 @@ const RelatedDiseases = () => {
       <main className={styles.main}>
         <section className={styles.geneList}>
           <h2>Select a Gene</h2>
-          <ul>
-            {geneData.map((gene, index) => (
-              <li
-                key={index}
-                className={`${styles.geneItem} ${selectedGene === gene ? styles.activeGene : ""}`}
-                onClick={() => handleGeneSelect(gene)}
-              >
-                {gene.name}
-              </li>
-            ))}
-          </ul>
+          {genes.length > 0 ? (
+            <ul>
+              {genes.map((gene) => (
+                <li
+                  key={gene.id}
+                  className={`${styles.geneItem} ${
+                    selectedGene && selectedGene.id === gene.id ? styles.activeGene : ""
+                  }`}
+                  onClick={() => handleGeneSelect(gene)}
+                >
+                  {gene.name}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>Loading genes...</p>
+          )}
         </section>
 
         {selectedGene ? (
@@ -153,18 +86,31 @@ const RelatedDiseases = () => {
             </p>
             <h3>Related Diseases</h3>
             <ul>
-              {selectedGene.diseases.map((disease, index) => (
-                <li key={index} className={styles.diseaseItem}>
-                  <h4 onClick={() => toggleDiseaseDetails(index)} className={styles.diseaseHeader}>
-                    <FaDisease /> {disease.name}
-                  </h4>
-                  {expandedDiseases[index] && <p className={styles.diseaseDescription}>{disease.description}</p>}
-                </li>
-              ))}
+              {diseasesForSelectedGene.length > 0 ? (
+                diseasesForSelectedGene.map((disease, index) => (
+                  <li key={disease.id} className={styles.diseaseItem}>
+                    <h4
+                      onClick={() => toggleDiseaseDetails(index)}
+                      className={styles.diseaseHeader}
+                    >
+                      <FaDisease /> {disease.name}
+                    </h4>
+                    {expandedDiseases[index] && (
+                      <p className={styles.diseaseDescription}>
+                        {disease.description}
+                      </p>
+                    )}
+                  </li>
+                ))
+              ) : (
+                <p>No related diseases found for this gene.</p>
+              )}
             </ul>
           </section>
         ) : (
-          <p className={styles.instruction}>Please select a gene to view its related diseases.</p>
+          <p className={styles.instruction}>
+            Please select a gene to view its related diseases.
+          </p>
         )}
       </main>
     </div>
