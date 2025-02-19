@@ -3,6 +3,18 @@
     padding: 20px;
     background: #eef7ff;
 
+    .backButton {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+    
+        text-decoration: none;
+        color: #fff;
+        background-color: #007bff;
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
+
     h2 {
         color: #333;
     }

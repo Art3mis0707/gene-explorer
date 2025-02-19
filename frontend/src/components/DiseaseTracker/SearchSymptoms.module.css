@@ -4,6 +4,19 @@
     background: linear-gradient(to bottom, #e3f2fd, #bbdefb);
     min-height: 100vh;
     font-family: 'Arial', sans-serif;
+
+    .backButton {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+    
+        text-decoration: none;
+        color: #fff;
+        background-color: #007bff;
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
+
     h2 {
         color: #1565c0;
         font-size: 28px;

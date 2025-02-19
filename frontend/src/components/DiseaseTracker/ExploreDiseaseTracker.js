@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styles from "./ExploreDiseaseTracker.module.css";
 
 const ExploreDiseaseTracker = () => {
@@ -29,6 +30,9 @@ const ExploreDiseaseTracker = () => {
 
   return (
     <div className={styles.tracker_container}>
+      <Link to="/" className={styles.backButton}>
+        Back to Home
+      </Link>
       <h2>Explore Disease Tracker</h2>
       <input
         type="text"

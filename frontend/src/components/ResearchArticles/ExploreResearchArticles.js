@@ -8,6 +8,9 @@ import ArticleList from "../ResearchArticles/ArticleList";
 const ResearchArticles = () => {
   return (
     <div className={styles.researchContainer}>
+      <Link to="/" className={styles.backButton}>
+        Back to Home
+      </Link>
       <h2 className={styles.title}>Explore Research Articles</h2>
       <p className={styles.subtitle}>
         Discover the latest advancements in bioinformatics, genetics, and proteomics.

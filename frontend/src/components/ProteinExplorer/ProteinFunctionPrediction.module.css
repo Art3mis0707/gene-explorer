@@ -4,6 +4,18 @@
     text-align: center;
     font-family: Arial, sans-serif;
   }
+
+  .backButton {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
   
   h2 {
     color: #4c96af;

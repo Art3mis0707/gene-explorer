@@ -8,6 +8,18 @@
   margin: auto;
 }
 
+.backButton {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+
+  text-decoration: none;
+  color: #fff;
+  background-color: #007bff;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
 /* Title and Subtitle */
 .title {
   font-size: 2rem;
@@ -74,22 +86,4 @@
 
 .readMore:hover {
   background: #d43f3a;
-}
-
-/* Back Button */
-.backButton {
-  display: inline-block;
-  margin-top: 30px;
-  padding: 12px 20px;
-  text-decoration: none;
-  font-weight: bold;
-  color: #007bff;
-  border: 2px solid #007bff;
-  border-radius: 8px;
-  transition: all 0.3s;
-}
-
-.backButton:hover {
-  background: #007bff;
-  color: white;
 }

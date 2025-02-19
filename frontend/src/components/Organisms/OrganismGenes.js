@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styles from "./OrganismGenes.module.css";
 
 const OrganismExplorer = () => {
@@ -41,6 +42,9 @@ const OrganismExplorer = () => {
 
     return (
         <div className={styles.organism_container}>
+            <Link to="/" className={styles.backButton}>
+                Back to Home
+            </Link>
             <h2 className={styles.heading}>Explore Organism Genes</h2>
             <div className={styles.grid}>
                 {organisms.map((organism, index) => (

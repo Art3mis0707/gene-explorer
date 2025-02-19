@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import styles from './ProteinFunctionPrediction.module.css';
 
 const proteinFunctions = {
@@ -71,6 +72,9 @@ const ProteinFunctionPrediction = () => {
 
   return (
     <div className={styles.container}>
+      <Link to="/" className={styles.backButton}>
+        Back to Home
+      </Link>
       <h2>Protein Function Prediction</h2>
 
       <div className={styles.inputContainer}>

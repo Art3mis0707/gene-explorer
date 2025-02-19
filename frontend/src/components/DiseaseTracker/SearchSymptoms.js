@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
+import { Link } from "react-router-dom";
 import styles from "./SearchSymptoms.module.css";
 
 const symptomOptions = [
@@ -70,6 +71,9 @@ const SearchSymptoms = () => {
 
   return (
     <div className={styles.symptoms_container}>
+      <Link to="/" className={styles.backButton}>
+        Back to Home
+      </Link>
       <h2>🔍 Search for Symptoms</h2>
       <p>Select symptoms to find possible diseases</p>
 

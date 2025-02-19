@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styles from "./OrganismResearch.module.css";
 
 const OrganismResearch = () => {
@@ -25,6 +26,9 @@ const OrganismResearch = () => {
 
     return (
         <div className={styles.researchContainer}>
+            <Link to="/" className={styles.backButton}>
+                Back to Home
+            </Link>
             <h2 className={styles.heading}>Explore Research on Organisms</h2>
             <div className={styles.researchList}>
                 {researchArticles.map((article, index) => (

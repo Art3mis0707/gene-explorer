@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import './RiskPredictionForm.css';
 
@@ -149,6 +150,9 @@ const RiskPredictionForm = () => {
 
   return (
     <div className="form-container">
+      <Link to="/" className="backButton">
+        Back to Home
+      </Link>
       <h2>Breast Cancer Risk Prediction</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">

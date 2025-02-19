@@ -1,5 +1,6 @@
 // ArticleList.js (updated version)
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styles from "./ArticleList.module.css";
 
 const ArticleList = () => {
@@ -31,6 +32,9 @@ const ArticleList = () => {
 
   return (
     <div className={styles.listContainer}>
+      <Link to="/" className={styles.backButton}>
+        Back to Home
+      </Link>
       <h2 className={styles.title}>Research Articles</h2>
       <p className={styles.subtitle}>Explore the latest advancements in bioinformatics and genetics.</p>
 
@@ -51,7 +55,6 @@ const ArticleList = () => {
         ))}
       </div>
 
-      <a href="/" className={styles.backButton}>← Back to Home</a>
     </div>
   );
 };
